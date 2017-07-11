@@ -1,0 +1,32 @@
+#!/bin/bash
+
+docker=$(which docker)
+
+echo "Using ${docker}"
+
+case "$1" in
+  build)
+    name="build_test_${2}"
+    image="build_${2}"
+
+    cid=$(docker ps -a|grep build_test_foo|awk '{print $1}')
+
+    $docker build -t $image .
+    $docker run --name $name -i -t $image
+    ;;
+
+  stop-all)
+    $docker stop $(docker ps -q)
+    ;;
+
+  kill-all)
+    $docker rm -f $(docker ps -a -q)
+    ;;
+
+  clean)
+    $docker rmi $(docker images | grep "^<none>" | awk '{print $3}')
+    ;;
+  *)
+    echo "Unknown command."
+    ;;
+esac

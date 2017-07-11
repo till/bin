@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo "Go Path: $GOPATH"
+
+mkdir -p $GOPATH/bin
+go get github.com/convox/praxis/cmd/cx
+
+#go get -ldflags -s -a -u github.com/jteeuwen/go-bindata/...
+#go get -ldflags -s -a -u github.com/convox/rack/...
+cx -v
