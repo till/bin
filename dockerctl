@@ -27,6 +27,6 @@ case "$1" in
     $docker rmi $(docker images | grep "^<none>" | awk '{print $3}')
     ;;
   *)
-    echo "Unknown command."
+    echo "Unknown command, try: $0 build|stop-all|kill-all|clean"
     ;;
 esac
