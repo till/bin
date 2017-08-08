@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# A ctl script for convox/praxis!
+
+launch=/bin/launchctl
+
+rack=convox.rack
+router=convox.router
+
+start_praxis() {
+  sudo $launch start $router
+  sudo $launch start $rack
+}
+
+stop_praxis() {
+  sudo $launch stop $router
+  sudo $launch stop $rack
+}
+
+case "$1" in
+  start)
+  start_praxis
+  ;;
+
+  stop)
+  stop_praxis
+  ;;
+
+  restart)
+  stop_praxis; start_praxis
+  ;;
+
+  logs)
+  sudo multitail -i /var/log/convox.router.log -i /var/log/convox.rack.log
+  ;;
+
+  *)
+  echo "usage: $0 start|stop|restart|logs" >&2
+  ;;
+esac
+
