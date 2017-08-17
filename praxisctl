@@ -18,6 +18,15 @@ stop_praxis() {
 }
 
 case "$1" in
+  install)
+  sudo cx rack install local
+  ;;
+
+  # this is the best way to turn it all off
+  uninstall)
+  sudo cx rack uninstall local
+  ;;
+
   start)
   start_praxis
   ;;
