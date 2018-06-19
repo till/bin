@@ -26,7 +26,10 @@ case "$1" in
   clean)
     $docker rmi $(docker images | grep "^<none>" | awk '{print $3}')
     ;;
+  clean-all)
+	$docker rmi $(docker images -q)
+	;;
   *)
-    echo "Unknown command, try: $0 build|stop-all|kill-all|clean"
+    echo "Unknown command, try: $0 build|stop-all|kill-all|clean|clean-all"
     ;;
 esac
